@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 
-int getChoice();
-int addBook(int choice, struct Book books[], int bookCount);
-
 struct Book
 {
     char title[25];
@@ -11,35 +8,43 @@ struct Book
     int pages;
     int price;
 };
+int getChoice();
+int addBook(int choice, struct Book books[], int bookCount);
+int getBookInfo(struct Book books[]);
 
 int main()
 {
     struct Book books[100];
     int bookCount = 0;
-    int choice = getChoice();
+    int choice;
+    choice = getChoice();
 
-    if (choice == 4)
-    {
-        printf("Thank you for using our library management system. Have a great day and happy reading! Goodbye!");
-    }
-    else
+    while (choice != 4)
     {
         if (choice == 1)
         {
             addBook(choice, books, bookCount);
+            choice = getChoice();
+        }
+        else if (choice == 2)
+        {
+            getBookInfo(books);
+            choice = getChoice();
         }
     }
+    printf("Thank you for using our library management system. Have a great day and happy reading! Goodbye!");
+
     return 0;
 }
 
 int getChoice()
 {
 
-    printf("------- Main menu ------");
+    printf("----- Main menu -----");
     printf("\n\n");
 
     int choice;
-    printf("1. Add books. \n");
+    printf("1. Add a book. \n");
     printf("2. Display book information. \n");
     printf("3. Add books.\n");
     printf("4. Exit \n\n");
@@ -86,5 +91,28 @@ int addBook(int choice, struct Book books[], int bookCount)
 
     printf("Book added successfully!");
     printf("\n\n");
+    return 0;
+}
+
+int getBookInfo(struct Book books[])
+{
+    printf("----- Book information -----");
+    printf("\n");
+    char title[25];
+    printf("Provide the title of the book: ");
+    fgets(title, 25, stdin);
+    title[strlen(title) - 1] = '\0';
+    for (int i = 0; i < 100; i++)
+    {
+        if (strcmp(books[i].title, title) == 0)
+        {
+            printf("Title: %s\n", books[i].title);
+            printf("Author: %s\n", books[i].author);
+            printf("Pages: %d\n", books[i].pages);
+            printf("Price: %d\n", books[i].price);
+            printf("\n\n");
+            return 0;
+        }
+    }
     return 0;
 }
