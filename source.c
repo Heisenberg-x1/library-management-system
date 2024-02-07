@@ -12,7 +12,7 @@ struct Book
 int getChoice();
 int addBook(int choice, struct Book books[], int bookCount);
 int getBookInfo(struct Book books[]);
-// int getBooksByCategory(struct Book books[]);
+int displayAllBooks(struct Book books[], int bookCount);
 
 int main()
 {
@@ -21,25 +21,20 @@ int main()
     int choice;
     choice = getChoice();
 
-    while (choice != 4)
+    while (choice != 5)
     {
         if (choice == 1)
         {
-            addBook(choice, books, bookCount);
+            bookCount = addBook(choice, books, bookCount);
             choice = getChoice();
         }
         else if (choice == 2)
         {
             getBookInfo(books);
             choice = getChoice();
-        }
-        else if(choice == 3){
-            // getBooksByCategory(books);
+        }else if (choice == 4){
+            displayAllBooks(books, bookCount);
             choice = getChoice();
-        } else{
-            printf("Invalid choice. Please try again.\n\n");
-            choice = getChoice();
-        
         }
     }
     printf("Thank you for using our library management system. Have a great day and happy reading! Goodbye!");
@@ -59,7 +54,8 @@ int getChoice()
         printf("1. Add a book. \n");
         printf("2. Display book information. \n");
         printf("3. Check the books available for a particular Category.\n");
-        printf("4. Exit \n\n");
+        printf("4. Display all books. \n");
+        printf("5. Exit \n\n");
         printf("Choose an option: ");
         fgets(input, 25, stdin);
 
@@ -107,7 +103,8 @@ int addBook(int choice, struct Book books[], int bookCount)
 
     printf("Book added successfully!");
     printf("\n\n");
-    return 0;
+
+    return bookCount;
 }
 
 int getBookInfo(struct Book books[])
@@ -134,21 +131,17 @@ int getBookInfo(struct Book books[])
     return 0;
 }
 
-// int getBooksByCategory(struct Book books[])
-// {
-//     printf("----- Books by Category -----");
-//     printf("\n");
-//     char category[25];
-//     printf("Provide the Category of the book: ");
-//     fgets(category, 25, stdin);
-//     category[strlen(category) - 1] = '\0';
-//     for (int i = 0; i < 100; i++)
-//     {
-//         if (strcmp(books[i].category, category) == 0)
-//         {
-//             printf("Title: %s\n", books[i].title);
-//             printf("\n");
-//         }
-//     }
-//     return 0;
-// }
+int displayAllBooks(struct Book books[], int bookCount)
+{
+    printf("----- All books -----");
+    printf("\n");
+    for (int i = 0; i < bookCount; i++)
+    {
+        if (books[i].title[0] != '\0')
+        {
+            printf("Title: %s\n", books[i].title);
+        }
+    }
+    printf("\n\n");
+    return 0;
+}
