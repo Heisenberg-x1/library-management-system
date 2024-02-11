@@ -13,6 +13,7 @@ int getChoice();
 int addBook(int choice, struct Book books[], int bookCount);
 int getBookInfo(struct Book books[]);
 int displayAllBooks(struct Book books[], int bookCount);
+int checkBooksPerCategory(struct Book books[], int bookCount);
 
 int main()
 {
@@ -32,7 +33,14 @@ int main()
         {
             getBookInfo(books);
             choice = getChoice();
-        }else if (choice == 4){
+        }
+        else if (choice == 3)
+        {
+            checkBooksPerCategory(books, bookCount);
+            choice = getChoice();
+        }
+        else if (choice == 4)
+        {
             displayAllBooks(books, bookCount);
             choice = getChoice();
         }
@@ -50,7 +58,8 @@ int getChoice()
     char input[25];
     int choice;
 
-    while (1) {
+    while (1)
+    {
         printf("1. Add a book. \n");
         printf("2. Display book information. \n");
         printf("3. Check the books available for a particular Category.\n");
@@ -59,7 +68,8 @@ int getChoice()
         printf("Choose an option: ");
         fgets(input, 25, stdin);
 
-        if (sscanf(input, "%d", &choice) == 1) break;
+        if (sscanf(input, "%d", &choice) == 1)
+            break;
 
         printf("Invalid choice. Please try again.\n");
     }
@@ -143,5 +153,25 @@ int displayAllBooks(struct Book books[], int bookCount)
         }
     }
     printf("\n\n");
+    return 0;
+}
+
+int checkBooksPerCategory(struct Book books[], int bookCount)
+{
+    printf("----- Books per category -----");
+    printf("\n");
+    char category[25];
+    printf("Provide the category: ");
+    fgets(category, 25, stdin);
+    printf("\ncategory: %s", category);
+    category[strlen(category) - 1] = '\0'; 
+    for (int i = 0; i < bookCount; i++)
+    {
+        if (strcmp(books[i].category, category) == 0)
+        {
+            printf("Title: %s\n", books[i].title);
+        }
+    }
+    // printf("\n\n");
     return 0;
 }
