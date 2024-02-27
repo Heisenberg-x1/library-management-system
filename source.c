@@ -169,7 +169,7 @@ int checkBooksPerCategory(struct Book books[], int bookCount)
     {
         if (strcmp(books[i].category, category) == 0)
         {
-            printf("Title: %s\n", books[i].title);
+            printf("Title: %s\n", books[i].title); 
         }
     }
     // printf("\n\n");
